@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Website</title>
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="static/assets/vendor/venobox/venobox.css" rel="stylesheet">
+  <link href="static/assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="static/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="static/assets/vendor/aos/aos.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="static/assets/css/style.css" rel="stylesheet">
+
+  </head>
+  <body>
+
+
+    <header id="header" style="background-color:#123456;">
+      <div class="container" >
+  
+        <div id="logo" class="pull-left" >
+  
+          <a href="/" class="scrollto" >F.M.S</a>
+        </div>
+  
+        <nav id="nav-menu-container">
+          <ul class="nav-menu">
+            <li class="{% block home %}
+            {% endblock home %}"><a href="/" >Home</a></li>
+                    
+            <li><a href="/register">Farmer Register</a></li>
+            <li><a href="/addfarming">Add Farming</a></li>
+            <li><a href="/farmerdetails">Farmer Details</a></li>
+            <li><a href="/agroproducts">Agro Products</a></li>
+            <li><a href="/triggers">Records</a></li>
+   
+         
+      
+   
+     
+        
+            {% if current_user.is_authenticated  %}
+            <li class="buy-tickets"><a href="">Welcome {{current_user.username}}</a></li>
+              <li class="buy-tickets"><a href="/logout">Logout</a></li>
+            {% else %}
+            <li class="buy-tickets"><a href="/signup">Signin</a></li>
+          
+            {% endif %}
+          </ul>
+        </nav><!-- #nav-menu-container -->
+      </div>
+    </header><!-- End Header -->
+
+
+
+    <div id="trigg">
+
+
+
+            
+      {% block body %}
+      <h3 class="text-center"><span>Farmer Details</span> </h3>
+      
+      {% with messages=get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      {% for category, message in messages %}
+
+      <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+        {{message}}
+
+
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+      <br>
+
+      <div class="container mt-3">
+      <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">RID</th>
+          <th scope="col">FARMER NAME</th>
+          <th scope="col">ADHAR NUMBER</th>
+          <th scope="col">AGE</th>
+          <th scope="col">GENDER</th>
+          <th scope="col">PHONE NUMBER</th>
+          <th scope="col">ADDRESS</th>
+          <th scope="col">FARMING</th>
+          <th scope="col">EDIT</th>
+          <th scope="col">DELETE</th>
+          <th scope="col">ADD AGRO PRODUCT</th>
+
+        </tr>
+      </thead>
+      <tbody>
+      {% for post in query %}
+        <tr>
+          <th scope="row">{{post.rid}}</th>
+          <td>{{post.farmername}}</td>
+          <td>{{post.adharnumber}}</td>
+          <td>{{post.age}}</td>
+          <td>{{post.gender}}</td>
+          <td>{{post.phonenumber}}</td>
+          <td>{{post.address}}</td>
+          <td>{{post.farming}}</td>
+
+        <td><a href="/edit/{{post.rid}}"><button class="btn btn-success">Edit </button> </a> </td>
+        
+        <td><a href="/delete/{{post.rid}}"><button onclick="return confirm('Are you sure to Delete data');" class="btn btn-success">Delete </button> </a> </td>
+        <td><a href="/addagroproduct"><button class="btn btn-success">ADD </button> </a> </td>
+        </tr>
+      {% endfor %}
+      
+      </tbody>
+      </table>
+
+      </div>
+
+
+
+
+      {% endblock body %}
+
+
+
+
+
+    </div>
+
+
+
+    
+    
+  
+  </body>
+</html>
+
+
